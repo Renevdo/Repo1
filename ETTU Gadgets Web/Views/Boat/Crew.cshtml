@@ -1,0 +1,14 @@
+﻿@model ETTU_Gadgets_Web.Models.Boat
+
+@{
+    ViewBag.Title = "Crew";
+}
+
+<h2>Crew</h2>
+
+<ul>
+    @foreach (ETTU_Gadgets_Web.Models.Person person in this.Model.Crew)
+    {
+        <li>@person.Name</li>
+    }
+</ul>

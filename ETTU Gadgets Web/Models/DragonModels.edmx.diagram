@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="076329a58c9f48c389fc897e320c8bb7" Name="Diagram1" >
+        <EntityTypeShape EntityType="DragonModels.Boat" Width="1.5" PointX="6.125" PointY="0.625" />
+        <EntityTypeShape EntityType="DragonModels.Race" Width="1.5" PointX="1.375" PointY="0.625" />
+        <EntityTypeShape EntityType="DragonModels.Person" Width="1.5" PointX="6.125" PointY="3" />
+        <AssociationConnector Association="DragonModels.PersonBoat" />
+        <EntityTypeShape EntityType="DragonModels.RaceResult" Width="1.5" PointX="3.625" PointY="0.625" />
+        <AssociationConnector Association="DragonModels.RaceResultRace" />
+        <AssociationConnector Association="DragonModels.BoatRaceResult" />
+        <EntityTypeShape EntityType="DragonModels.RaceImage" Width="1.5" PointX="8.25" PointY="1.875" />
+        <AssociationConnector Association="DragonModels.RaceImageBoat" />
+        <AssociationConnector Association="DragonModels.RaceImagePerson" />
+        <EntityTypeShape EntityType="DragonModels.RaceSchema" Width="1.5" PointX="1.75" PointY="3" />
+        <AssociationConnector Association="DragonModels.RaceSchemaRace" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

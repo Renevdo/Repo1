@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DragonModels.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DragonModelsStoreContainer">
+    <EntitySet Name="BoatSet" EntityType="DragonModels.Store.BoatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RaceSet" EntityType="DragonModels.Store.RaceSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet" EntityType="DragonModels.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RaceResultSet" EntityType="DragonModels.Store.RaceResultSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RaceImageSet" EntityType="DragonModels.Store.RaceImageSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RaceSchemaSet" EntityType="DragonModels.Store.RaceSchemaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RaceImageBoat" EntityType="DragonModels.Store.RaceImageBoat" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RaceImagePerson" EntityType="DragonModels.Store.RaceImagePerson" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PersonBoat" Association="DragonModels.Store.PersonBoat">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Boat" EntitySet="BoatSet" />
+    </AssociationSet>
+    <AssociationSet Name="RaceResultRace" Association="DragonModels.Store.RaceResultRace">
+      <End Role="RaceResult" EntitySet="RaceResultSet" />
+      <End Role="Race" EntitySet="RaceSet" />
+    </AssociationSet>
+    <AssociationSet Name="BoatRaceResult" Association="DragonModels.Store.BoatRaceResult">
+      <End Role="Boat" EntitySet="BoatSet" />
+      <End Role="RaceResult" EntitySet="RaceResultSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RaceImageBoat_RaceImage" Association="DragonModels.Store.FK_RaceImageBoat_RaceImage">
+      <End Role="RaceImage" EntitySet="RaceImageSet" />
+      <End Role="RaceImageBoat" EntitySet="RaceImageBoat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RaceImageBoat_Boat" Association="DragonModels.Store.FK_RaceImageBoat_Boat">
+      <End Role="Boat" EntitySet="BoatSet" />
+      <End Role="RaceImageBoat" EntitySet="RaceImageBoat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RaceImagePerson_RaceImage" Association="DragonModels.Store.FK_RaceImagePerson_RaceImage">
+      <End Role="RaceImage" EntitySet="RaceImageSet" />
+      <End Role="RaceImagePerson" EntitySet="RaceImagePerson" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RaceImagePerson_Person" Association="DragonModels.Store.FK_RaceImagePerson_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="RaceImagePerson" EntitySet="RaceImagePerson" />
+    </AssociationSet>
+    <AssociationSet Name="RaceSchemaRace" Association="DragonModels.Store.RaceSchemaRace">
+      <End Role="RaceSchema" EntitySet="RaceSchemaSet" />
+      <End Role="Race" EntitySet="RaceSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BoatSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaceSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pool" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RaceSchemaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Boat_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaceResultSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Start" Type="time" Nullable="false" />
+    <Property Name="End" Type="time" Nullable="false" />
+    <Property Name="RaceId" Type="int" Nullable="false" />
+    <Property Name="BoatId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaceImageSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaceSchemaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaceImageBoat">
+    <Key>
+      <PropertyRef Name="RaceImages_Id" />
+      <PropertyRef Name="Boats_Id" />
+    </Key>
+    <Property Name="RaceImages_Id" Type="int" Nullable="false" />
+    <Property Name="Boats_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaceImagePerson">
+    <Key>
+      <PropertyRef Name="RaceImages_Id" />
+      <PropertyRef Name="Persons_Id" />
+    </Key>
+    <Property Name="RaceImages_Id" Type="int" Nullable="false" />
+    <Property Name="Persons_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonBoat">
+    <End Role="Person" Type="DragonModels.Store.PersonSet" Multiplicity="*" />
+    <End Role="Boat" Type="DragonModels.Store.BoatSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Boat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="Boat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RaceResultRace">
+    <End Role="RaceResult" Type="DragonModels.Store.RaceResultSet" Multiplicity="*" />
+    <End Role="Race" Type="DragonModels.Store.RaceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Race">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RaceResult">
+        <PropertyRef Name="RaceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BoatRaceResult">
+    <End Role="Boat" Type="DragonModels.Store.BoatSet" Multiplicity="1" />
+    <End Role="RaceResult" Type="DragonModels.Store.RaceResultSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Boat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RaceResult">
+        <PropertyRef Name="BoatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RaceSchemaRace">
+    <End Role="RaceSchema" Type="DragonModels.Store.RaceSchemaSet" Multiplicity="1" />
+    <End Role="Race" Type="DragonModels.Store.RaceSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RaceSchema">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Race">
+        <PropertyRef Name="RaceSchemaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RaceImageBoat_RaceImage">
+    <End Role="RaceImage" Type="DragonModels.Store.RaceImageSet" Multiplicity="1" />
+    <End Role="RaceImageBoat" Type="DragonModels.Store.RaceImageBoat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RaceImage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RaceImageBoat">
+        <PropertyRef Name="RaceImages_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RaceImageBoat_Boat">
+    <End Role="RaceImageBoat" Type="DragonModels.Store.RaceImageBoat" Multiplicity="*" />
+    <End Role="Boat" Type="DragonModels.Store.BoatSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Boat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RaceImageBoat">
+        <PropertyRef Name="Boats_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RaceImagePerson_RaceImage">
+    <End Role="RaceImage" Type="DragonModels.Store.RaceImageSet" Multiplicity="1" />
+    <End Role="RaceImagePerson" Type="DragonModels.Store.RaceImagePerson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RaceImage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RaceImagePerson">
+        <PropertyRef Name="RaceImages_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RaceImagePerson_Person">
+    <End Role="RaceImagePerson" Type="DragonModels.Store.RaceImagePerson" Multiplicity="*" />
+    <End Role="Person" Type="DragonModels.Store.PersonSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RaceImagePerson">
+        <PropertyRef Name="Persons_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DragonModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DragonModelsContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BoatSet" EntityType="DragonModels.Boat" />
+          <EntitySet Name="RaceSet" EntityType="DragonModels.Race" />
+          <EntitySet Name="PersonSet" EntityType="DragonModels.Person" />
+          <AssociationSet Name="PersonBoat" Association="DragonModels.PersonBoat">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Boat" EntitySet="BoatSet" />
+          </AssociationSet>
+          <EntitySet Name="RaceResultSet" EntityType="DragonModels.RaceResult" />
+          <AssociationSet Name="RaceResultRace" Association="DragonModels.RaceResultRace">
+            <End Role="RaceResult" EntitySet="RaceResultSet" />
+            <End Role="Race" EntitySet="RaceSet" />
+          </AssociationSet>
+          <AssociationSet Name="BoatRaceResult" Association="DragonModels.BoatRaceResult">
+            <End Role="Boat" EntitySet="BoatSet" />
+            <End Role="RaceResult" EntitySet="RaceResultSet" />
+          </AssociationSet>
+          <EntitySet Name="RaceImageSet" EntityType="DragonModels.RaceImage" />
+          <AssociationSet Name="RaceImageBoat" Association="DragonModels.RaceImageBoat">
+            <End Role="RaceImage" EntitySet="RaceImageSet" />
+            <End Role="Boat" EntitySet="BoatSet" />
+          </AssociationSet>
+          <AssociationSet Name="RaceImagePerson" Association="DragonModels.RaceImagePerson">
+            <End Role="RaceImage" EntitySet="RaceImageSet" />
+            <End Role="Person" EntitySet="PersonSet" />
+          </AssociationSet>
+          <EntitySet Name="RaceSchemaSet" EntityType="DragonModels.RaceSchema" />
+          <AssociationSet Name="RaceSchemaRace" Association="DragonModels.RaceSchemaRace">
+            <End Role="RaceSchema" EntitySet="RaceSchemaSet" />
+            <End Role="Race" EntitySet="RaceSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Boat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Crew" Relationship="DragonModels.PersonBoat" FromRole="Boat" ToRole="Person" />
+          <NavigationProperty Name="RaceResults" Relationship="DragonModels.BoatRaceResult" FromRole="Boat" ToRole="RaceResult" />
+          <NavigationProperty Name="RaceImages" Relationship="DragonModels.RaceImageBoat" FromRole="Boat" ToRole="RaceImage" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Pool" Nullable="false" />
+          <NavigationProperty Name="RaceResult" Relationship="DragonModels.RaceResultRace" FromRole="Race" ToRole="RaceResult" />
+          <NavigationProperty Name="RaceSchema" Relationship="DragonModels.RaceSchemaRace" FromRole="Race" ToRole="RaceSchema" />
+          <Property Type="Int32" Name="RaceSchemaId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Boat" Relationship="DragonModels.PersonBoat" FromRole="Person" ToRole="Boat" />
+          <NavigationProperty Name="RaceImages" Relationship="DragonModels.RaceImagePerson" FromRole="Person" ToRole="RaceImage" />
+        </EntityType>
+        <Association Name="PersonBoat">
+          <End Type="DragonModels.Person" Role="Person" Multiplicity="*" />
+          <End Type="DragonModels.Boat" Role="Boat" Multiplicity="1" />
+        </Association>
+        <EntityType Name="RaceResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Time" Name="Start" Nullable="false" />
+          <Property Type="Time" Name="End" Nullable="false" />
+          <NavigationProperty Name="Race" Relationship="DragonModels.RaceResultRace" FromRole="RaceResult" ToRole="Race" />
+          <Property Type="Int32" Name="RaceId" Nullable="false" />
+          <NavigationProperty Name="Boat" Relationship="DragonModels.BoatRaceResult" FromRole="RaceResult" ToRole="Boat" />
+          <Property Type="Int32" Name="BoatId" Nullable="false" />
+        </EntityType>
+        <Association Name="RaceResultRace">
+          <End Type="DragonModels.RaceResult" Role="RaceResult" Multiplicity="*" />
+          <End Type="DragonModels.Race" Role="Race" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RaceResult">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BoatRaceResult">
+          <End Type="DragonModels.Boat" Role="Boat" Multiplicity="1" />
+          <End Type="DragonModels.RaceResult" Role="RaceResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RaceResult">
+              <PropertyRef Name="BoatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RaceImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Boats" Relationship="DragonModels.RaceImageBoat" FromRole="RaceImage" ToRole="Boat" />
+          <NavigationProperty Name="Persons" Relationship="DragonModels.RaceImagePerson" FromRole="RaceImage" ToRole="Person" />
+        </EntityType>
+        <Association Name="RaceImageBoat">
+          <End Type="DragonModels.RaceImage" Role="RaceImage" Multiplicity="*" />
+          <End Type="DragonModels.Boat" Role="Boat" Multiplicity="*" />
+        </Association>
+        <Association Name="RaceImagePerson">
+          <End Type="DragonModels.RaceImage" Role="RaceImage" Multiplicity="*" />
+          <End Type="DragonModels.Person" Role="Person" Multiplicity="*" />
+        </Association>
+        <EntityType Name="RaceSchema">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Races" Relationship="DragonModels.RaceSchemaRace" FromRole="RaceSchema" ToRole="Race" />
+        </EntityType>
+        <Association Name="RaceSchemaRace">
+          <End Type="DragonModels.RaceSchema" Role="RaceSchema" Multiplicity="1" />
+          <End Type="DragonModels.Race" Role="Race" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RaceSchema">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Race">
+              <PropertyRef Name="RaceSchemaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DragonModelsStoreContainer" CdmEntityContainer="DragonModelsContainer">
+    <EntitySetMapping Name="BoatSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DragonModels.Boat)">
+        <MappingFragment StoreEntitySet="BoatSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaceSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DragonModels.Race)">
+        <MappingFragment StoreEntitySet="RaceSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Pool" ColumnName="Pool" />
+          <ScalarProperty Name="RaceSchemaId" ColumnName="RaceSchemaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DragonModels.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaceResultSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DragonModels.RaceResult)">
+        <MappingFragment StoreEntitySet="RaceResultSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+          <ScalarProperty Name="BoatId" ColumnName="BoatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaceImageSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DragonModels.RaceImage)">
+        <MappingFragment StoreEntitySet="RaceImageSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaceSchemaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DragonModels.RaceSchema)">
+        <MappingFragment StoreEntitySet="RaceSchemaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonBoat" TypeName="DragonModels.PersonBoat" StoreEntitySet="PersonSet">
+      <EndProperty Name="Boat">
+        <ScalarProperty Name="Id" ColumnName="Boat_Id" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RaceImageBoat" TypeName="DragonModels.RaceImageBoat" StoreEntitySet="RaceImageBoat">
+      <EndProperty Name="RaceImage">
+        <ScalarProperty Name="Id" ColumnName="RaceImages_Id" />
+      </EndProperty>
+      <EndProperty Name="Boat">
+        <ScalarProperty Name="Id" ColumnName="Boats_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RaceImagePerson" TypeName="DragonModels.RaceImagePerson" StoreEntitySet="RaceImagePerson">
+      <EndProperty Name="RaceImage">
+        <ScalarProperty Name="Id" ColumnName="RaceImages_Id" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Persons_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
