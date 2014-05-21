@@ -1,0 +1,27 @@
+﻿@model ETTU_Gadgets_Web.Models.Boat
+
+@{
+    ViewBag.Title = "Team";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Team</h2>
+@Html.ActionLink("Back", "Index", new { id = Model.Id }) |
+@Html.ActionLink("Edit team", "EditTeam", new { id = Model.Id })
+<div class="TeamContainer">
+    @foreach (ETTU_Gadgets_Web.Models.Person person in Model.Crew)
+    {
+        <div class="TeamMember" style="clear:both">
+            
+            @{
+                if (person.Image != null)
+                {
+                    string imageBase64 = Convert.ToBase64String(person.Image);
+                    string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                        <img class="PersonImage" style="width:100px;height:100px;float:left;" src="@imageSrc" />
+                }
+            }
+            <div style="float:left;">@Html.DisplayNameFor(modelItem => person.Name) : @person.Name</div>
+        </div>
+    }
+</div>

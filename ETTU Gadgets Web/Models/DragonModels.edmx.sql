@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/19/2014 20:22:30
+-- Date Created: 05/21/2014 15:02:38
 -- Generated from EDMX file: C:\Users\reneo\documents\visual studio 2012\Projects\ETTU Gadgets\ETTU Gadgets Web\Models\DragonModels.edmx
 -- --------------------------------------------------
 
@@ -17,9 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_PersonBoat]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PersonSet] DROP CONSTRAINT [FK_PersonBoat];
-GO
 IF OBJECT_ID(N'[dbo].[FK_RaceResultRace]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RaceResultSet] DROP CONSTRAINT [FK_RaceResultRace];
 GO
@@ -38,6 +35,15 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_RaceImagePerson_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RaceImagePerson] DROP CONSTRAINT [FK_RaceImagePerson_Person];
 GO
+IF OBJECT_ID(N'[dbo].[FK_BoatPerson]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PersonSet] DROP CONSTRAINT [FK_BoatPerson];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PoolRace]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RaceSet] DROP CONSTRAINT [FK_PoolRace];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RaceBoat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BoatSet] DROP CONSTRAINT [FK_RaceBoat];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -55,8 +61,11 @@ GO
 IF OBJECT_ID(N'[dbo].[RaceResultSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[RaceResultSet];
 GO
-IF OBJECT_ID(N'[dbo].[RaceImageSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[RaceImageSet];
+IF OBJECT_ID(N'[dbo].[ImagesSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ImagesSet];
+GO
+IF OBJECT_ID(N'[dbo].[PoolSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PoolSet];
 GO
 IF OBJECT_ID(N'[dbo].[RaceImageBoat]', 'U') IS NOT NULL
     DROP TABLE [dbo].[RaceImageBoat];
@@ -79,8 +88,7 @@ GO
 -- Creating table 'RaceSet'
 CREATE TABLE [dbo].[RaceSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Pool] nvarchar(max)  NOT NULL,
-    [RaceSchemaId] int  NOT NULL
+    [PoolId] int  NOT NULL
 );
 GO
 
@@ -88,7 +96,8 @@ GO
 CREATE TABLE [dbo].[PersonSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Boat_Id] int  NOT NULL
+    [Image] varbinary(max)  NULL,
+    [BoatId] int  NOT NULL
 );
 GO
 
@@ -102,29 +111,38 @@ CREATE TABLE [dbo].[RaceResultSet] (
 );
 GO
 
--- Creating table 'RaceImageSet'
-CREATE TABLE [dbo].[RaceImageSet] (
-    [Id] int IDENTITY(1,1) NOT NULL
+-- Creating table 'ImagesSet'
+CREATE TABLE [dbo].[ImagesSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [IsDefault] bit  NOT NULL
 );
 GO
 
--- Creating table 'RaceSchemaSet'
-CREATE TABLE [dbo].[RaceSchemaSet] (
-    [Id] int IDENTITY(1,1) NOT NULL
+-- Creating table 'PoolSet'
+CREATE TABLE [dbo].[PoolSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'RaceImageBoat'
 CREATE TABLE [dbo].[RaceImageBoat] (
-    [RaceImages_Id] int  NOT NULL,
+    [Images_Id] int  NOT NULL,
     [Boats_Id] int  NOT NULL
 );
 GO
 
 -- Creating table 'RaceImagePerson'
 CREATE TABLE [dbo].[RaceImagePerson] (
-    [RaceImages_Id] int  NOT NULL,
+    [Images_Id] int  NOT NULL,
     [Persons_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'RaceBoat'
+CREATE TABLE [dbo].[RaceBoat] (
+    [Race_Id] int  NOT NULL,
+    [Boats_Id] int  NOT NULL
 );
 GO
 
@@ -156,47 +174,39 @@ ADD CONSTRAINT [PK_RaceResultSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'RaceImageSet'
-ALTER TABLE [dbo].[RaceImageSet]
-ADD CONSTRAINT [PK_RaceImageSet]
+-- Creating primary key on [Id] in table 'ImagesSet'
+ALTER TABLE [dbo].[ImagesSet]
+ADD CONSTRAINT [PK_ImagesSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'RaceSchemaSet'
-ALTER TABLE [dbo].[RaceSchemaSet]
-ADD CONSTRAINT [PK_RaceSchemaSet]
+-- Creating primary key on [Id] in table 'PoolSet'
+ALTER TABLE [dbo].[PoolSet]
+ADD CONSTRAINT [PK_PoolSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [RaceImages_Id], [Boats_Id] in table 'RaceImageBoat'
+-- Creating primary key on [Images_Id], [Boats_Id] in table 'RaceImageBoat'
 ALTER TABLE [dbo].[RaceImageBoat]
 ADD CONSTRAINT [PK_RaceImageBoat]
-    PRIMARY KEY NONCLUSTERED ([RaceImages_Id], [Boats_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Images_Id], [Boats_Id] ASC);
 GO
 
--- Creating primary key on [RaceImages_Id], [Persons_Id] in table 'RaceImagePerson'
+-- Creating primary key on [Images_Id], [Persons_Id] in table 'RaceImagePerson'
 ALTER TABLE [dbo].[RaceImagePerson]
 ADD CONSTRAINT [PK_RaceImagePerson]
-    PRIMARY KEY NONCLUSTERED ([RaceImages_Id], [Persons_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Images_Id], [Persons_Id] ASC);
+GO
+
+-- Creating primary key on [Race_Id], [Boats_Id] in table 'RaceBoat'
+ALTER TABLE [dbo].[RaceBoat]
+ADD CONSTRAINT [PK_RaceBoat]
+    PRIMARY KEY NONCLUSTERED ([Race_Id], [Boats_Id] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Boat_Id] in table 'PersonSet'
-ALTER TABLE [dbo].[PersonSet]
-ADD CONSTRAINT [FK_PersonBoat]
-    FOREIGN KEY ([Boat_Id])
-    REFERENCES [dbo].[BoatSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PersonBoat'
-CREATE INDEX [IX_FK_PersonBoat]
-ON [dbo].[PersonSet]
-    ([Boat_Id]);
-GO
 
 -- Creating foreign key on [RaceId] in table 'RaceResultSet'
 ALTER TABLE [dbo].[RaceResultSet]
@@ -226,11 +236,11 @@ ON [dbo].[RaceResultSet]
     ([BoatId]);
 GO
 
--- Creating foreign key on [RaceImages_Id] in table 'RaceImageBoat'
+-- Creating foreign key on [Images_Id] in table 'RaceImageBoat'
 ALTER TABLE [dbo].[RaceImageBoat]
 ADD CONSTRAINT [FK_RaceImageBoat_RaceImage]
-    FOREIGN KEY ([RaceImages_Id])
-    REFERENCES [dbo].[RaceImageSet]
+    FOREIGN KEY ([Images_Id])
+    REFERENCES [dbo].[ImagesSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -249,11 +259,11 @@ ON [dbo].[RaceImageBoat]
     ([Boats_Id]);
 GO
 
--- Creating foreign key on [RaceImages_Id] in table 'RaceImagePerson'
+-- Creating foreign key on [Images_Id] in table 'RaceImagePerson'
 ALTER TABLE [dbo].[RaceImagePerson]
 ADD CONSTRAINT [FK_RaceImagePerson_RaceImage]
-    FOREIGN KEY ([RaceImages_Id])
-    REFERENCES [dbo].[RaceImageSet]
+    FOREIGN KEY ([Images_Id])
+    REFERENCES [dbo].[ImagesSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -272,18 +282,55 @@ ON [dbo].[RaceImagePerson]
     ([Persons_Id]);
 GO
 
--- Creating foreign key on [RaceSchemaId] in table 'RaceSet'
-ALTER TABLE [dbo].[RaceSet]
-ADD CONSTRAINT [FK_RaceSchemaRace]
-    FOREIGN KEY ([RaceSchemaId])
-    REFERENCES [dbo].[RaceSchemaSet]
+-- Creating foreign key on [BoatId] in table 'PersonSet'
+ALTER TABLE [dbo].[PersonSet]
+ADD CONSTRAINT [FK_BoatPerson]
+    FOREIGN KEY ([BoatId])
+    REFERENCES [dbo].[BoatSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_RaceSchemaRace'
-CREATE INDEX [IX_FK_RaceSchemaRace]
+-- Creating non-clustered index for FOREIGN KEY 'FK_BoatPerson'
+CREATE INDEX [IX_FK_BoatPerson]
+ON [dbo].[PersonSet]
+    ([BoatId]);
+GO
+
+-- Creating foreign key on [PoolId] in table 'RaceSet'
+ALTER TABLE [dbo].[RaceSet]
+ADD CONSTRAINT [FK_PoolRace]
+    FOREIGN KEY ([PoolId])
+    REFERENCES [dbo].[PoolSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PoolRace'
+CREATE INDEX [IX_FK_PoolRace]
 ON [dbo].[RaceSet]
-    ([RaceSchemaId]);
+    ([PoolId]);
+GO
+
+-- Creating foreign key on [Race_Id] in table 'RaceBoat'
+ALTER TABLE [dbo].[RaceBoat]
+ADD CONSTRAINT [FK_RaceBoat_Race]
+    FOREIGN KEY ([Race_Id])
+    REFERENCES [dbo].[RaceSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Boats_Id] in table 'RaceBoat'
+ALTER TABLE [dbo].[RaceBoat]
+ADD CONSTRAINT [FK_RaceBoat_Boat]
+    FOREIGN KEY ([Boats_Id])
+    REFERENCES [dbo].[BoatSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RaceBoat_Boat'
+CREATE INDEX [IX_FK_RaceBoat_Boat]
+ON [dbo].[RaceBoat]
+    ([Boats_Id]);
 GO
 
 -- --------------------------------------------------

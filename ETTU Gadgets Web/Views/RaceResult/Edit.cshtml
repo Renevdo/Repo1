@@ -1,0 +1,62 @@
+﻿@model ETTU_Gadgets_Web.Models.RaceResult
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>RaceResult</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Start)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Start)
+            @Html.ValidationMessageFor(model => model.Start)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.End)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.End)
+            @Html.ValidationMessageFor(model => model.End)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RaceId, "Race")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RaceId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RaceId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BoatId, "Boat")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("BoatId", String.Empty)
+            @Html.ValidationMessageFor(model => model.BoatId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

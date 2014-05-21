@@ -1,0 +1,43 @@
+﻿@model ETTU_Gadgets_Web.Models.RaceResult
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>RaceResult</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Start)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Start)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.End)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.End)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Race.Pool)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Race.Pool)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Boat.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Boat.Name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,4 +1,4 @@
-﻿@model ETTU_Gadgets_Web.Models.RaceSchema
+﻿@model ETTU_Gadgets_Web.Models.Race
 
 @{
     ViewBag.Title = "Edit";
@@ -11,9 +11,17 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>RaceSchema</legend>
+        <legend>Race</legend>
 
         @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PoolId, "Pool")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PoolId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PoolId)
+        </div>
 
         <p>
             <input type="submit" value="Save" />

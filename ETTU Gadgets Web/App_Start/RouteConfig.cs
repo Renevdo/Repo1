@@ -13,11 +13,20 @@ namespace ETTU_Gadgets_Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+                "Team",
+                "Team/{id}",
+                new { controller = "Team", action = "Index", id = "{id}" },
+                constraints: new { id = @"\d+" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            
         }
     }
 }

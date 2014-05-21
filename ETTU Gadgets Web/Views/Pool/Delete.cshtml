@@ -1,4 +1,4 @@
-﻿@model ETTU_Gadgets_Web.Models.RaceSchema
+﻿@model ETTU_Gadgets_Web.Models.Pool
 
 @{
     ViewBag.Title = "Delete";
@@ -8,7 +8,14 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>RaceSchema</legend>
+    <legend>Pool</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()

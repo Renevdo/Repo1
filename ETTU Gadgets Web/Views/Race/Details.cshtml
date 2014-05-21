@@ -1,4 +1,4 @@
-﻿@model ETTU_Gadgets_Web.Models.Boat
+﻿@model ETTU_Gadgets_Web.Models.Race
 
 @{
     ViewBag.Title = "Details";
@@ -7,17 +7,16 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Boat</legend>
+    <legend>Race</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+         @Html.DisplayNameFor(model => model.Pool.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => model.Pool.Name)
     </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Team", "../Team", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -12,15 +12,18 @@ namespace ETTU_Gadgets_Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RaceSchema
+    public partial class Images
     {
-        public RaceSchema()
+        public Images()
         {
-            this.Races = new HashSet<Race>();
+            this.Boats = new HashSet<Boat>();
+            this.Persons = new HashSet<Person>();
         }
     
         public int Id { get; set; }
+        public bool IsDefault { get; set; }
     
-        public virtual ICollection<Race> Races { get; set; }
+        public virtual ICollection<Boat> Boats { get; set; }
+        public virtual ICollection<Person> Persons { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ETTU_Gadgets_Web.Models.Boat
+﻿@model ETTU_Gadgets_Web.Models.Person
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Boat</legend>
+        <legend>Person</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -20,14 +20,14 @@
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
         </div>
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.Images)
+            @Html.LabelFor(model => model.BoatId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Images)
-            @Html.ValidationMessageFor(model => model.Images)
+            @Html.DropDownList("BoatId", "Select a Boat")
+            @Html.ValidationMessageFor(model => model.BoatId)
         </div>
-
         <p>
             <input type="submit" value="Create" />
         </p>

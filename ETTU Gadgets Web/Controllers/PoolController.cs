@@ -9,33 +9,33 @@ using ETTU_Gadgets_Web.Models;
 
 namespace ETTU_Gadgets_Web.Controllers
 {
-    public class BoatController : Controller
+    public class PoolController : Controller
     {
         private DragonModelsContainer db = new DragonModelsContainer();
 
         //
-        // GET: /Boat/
+        // GET: /Pool/
 
         public ActionResult Index()
         {
-            return View(db.BoatSet.ToList());
+            return View(db.PoolSet.ToList());
         }
 
         //
-        // GET: /Boat/Details/5
+        // GET: /Pool/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Boat boat = db.BoatSet.Find(id);
-            if (boat == null)
+            Pool pool = db.PoolSet.Find(id);
+            if (pool == null)
             {
                 return HttpNotFound();
             }
-            return View(boat);
+            return View(pool);
         }
 
         //
-        // GET: /Boat/Create
+        // GET: /Pool/Create
 
         public ActionResult Create()
         {
@@ -43,88 +43,75 @@ namespace ETTU_Gadgets_Web.Controllers
         }
 
         //
-        // POST: /Boat/Create
+        // POST: /Pool/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Boat boat)
+        public ActionResult Create(Pool pool)
         {
             if (ModelState.IsValid)
             {
-                db.BoatSet.Add(boat);
+                db.PoolSet.Add(pool);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(boat);
+            return View(pool);
         }
 
         //
-        // GET: /Boat/Edit/5
+        // GET: /Pool/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Boat boat = db.BoatSet.Find(id);
-            if (boat == null)
+            Pool pool = db.PoolSet.Find(id);
+            if (pool == null)
             {
                 return HttpNotFound();
             }
-            return View(boat);
+            return View(pool);
         }
 
         //
-        // POST: /Boat/Edit/5
+        // POST: /Pool/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Boat boat)
+        public ActionResult Edit(Pool pool)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(boat).State = EntityState.Modified;
+                db.Entry(pool).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(boat);
+            return View(pool);
         }
 
         //
-        // GET: /Boat/Delete/5
+        // GET: /Pool/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Boat boat = db.BoatSet.Find(id);
-            if (boat == null)
+            Pool pool = db.PoolSet.Find(id);
+            if (pool == null)
             {
                 return HttpNotFound();
             }
-            return View(boat);
+            return View(pool);
         }
 
         //
-        // POST: /Boat/Delete/5
+        // POST: /Pool/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Boat boat = db.BoatSet.Find(id);
-            db.BoatSet.Remove(boat);
+            Pool pool = db.PoolSet.Find(id);
+            db.PoolSet.Remove(pool);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-        //
-        // GET: Boat/Team/5
-
-        public ActionResult Team(int id = 0)
-        {
-            Boat boat = db.BoatSet.Find(id);
-            if (boat == null)
-            {
-                return HttpNotFound();
-            }
-            return View(boat);
-            //return View("~/Views/Team/Index.cshtml", boat);
         }
 
         protected override void Dispose(bool disposing)

@@ -29,7 +29,7 @@ namespace ETTU_Gadgets_Web.Models
         public DbSet<Race> RaceSet { get; set; }
         public DbSet<Person> PersonSet { get; set; }
         public DbSet<RaceResult> RaceResultSet { get; set; }
-        public DbSet<RaceImage> RaceImageSet { get; set; }
-        public DbSet<RaceSchema> RaceSchemaSet { get; set; }
+        public DbSet<Images> ImagesSet { get; set; }
+        public DbSet<Pool> PoolSet { get; set; }
     }
 }

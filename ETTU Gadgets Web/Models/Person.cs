@@ -16,13 +16,15 @@ namespace ETTU_Gadgets_Web.Models
     {
         public Person()
         {
-            this.RaceImages = new HashSet<RaceImage>();
+            this.Images = new HashSet<Images>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public byte[] Image { get; set; }
+        public int BoatId { get; set; }
     
+        public virtual ICollection<Images> Images { get; set; }
         public virtual Boat Boat { get; set; }
-        public virtual ICollection<RaceImage> RaceImages { get; set; }
     }
 }

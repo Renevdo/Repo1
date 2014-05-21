@@ -1,0 +1,9 @@
+﻿@model ETTU_Gadgets_Web.Views.Shared.UploadImageModel
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UploadImage)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="UploadImage" class="input-files" />
+            @Html.ValidationMessageFor(model => model.UploadImage)
+        </div>

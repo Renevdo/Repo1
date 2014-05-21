@@ -6,110 +6,122 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ETTU_Gadgets_Web.Models;
+using ETTU_Gadgets_Web.Models.ViewModels;
 
 namespace ETTU_Gadgets_Web.Controllers
 {
-    public class RaceSchemaController : Controller
+    public class RaceController : Controller
     {
         private DragonModelsContainer db = new DragonModelsContainer();
 
         //
-        // GET: /RaceSchema/
+        // GET: /Race/
 
         public ActionResult Index()
         {
-            return View(db.RaceSchemaSet.ToList());
+            var raceset = db.RaceSet.Include(r => r.Pool);
+            return View(raceset.ToList());
         }
 
         //
-        // GET: /RaceSchema/Details/5
+        // GET: /Race/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            RaceSchema raceschema = db.RaceSchemaSet.Find(id);
-            if (raceschema == null)
+            Race race = db.RaceSet.Find(id);
+            if (race == null)
             {
                 return HttpNotFound();
             }
-            return View(raceschema);
+            return View(race);
         }
 
         //
-        // GET: /RaceSchema/Create
+        // GET: /Race/Create
 
         public ActionResult Create()
         {
+            ViewBag.AvailableBoats = db.BoatSet;
+            ViewBag.AvailablePools = new SelectList(db.PoolSet, "Id", "Name");
             return View();
         }
 
         //
-        // POST: /RaceSchema/Create
+        // POST: /Race/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RaceSchema raceschema)
+        public ActionResult Create(RaceViewModel rvm)
         {
+            Race race = rvm.Race;
+            race.Boats.Add(db.BoatSet.Find(rvm.Boat1));
+            race.Boats.Add(db.BoatSet.Find(rvm.Boat2));
+
             if (ModelState.IsValid)
             {
-                db.RaceSchemaSet.Add(raceschema);
+                db.RaceSet.Add(race);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(raceschema);
+            ViewBag.AvailableBoats = db.BoatSet;
+            ViewBag.AvailablePools = new SelectList(db.PoolSet, "Id", "Name", race.PoolId);
+            return View(race);
         }
 
         //
-        // GET: /RaceSchema/Edit/5
+        // GET: /Race/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            RaceSchema raceschema = db.RaceSchemaSet.Find(id);
-            if (raceschema == null)
+            Race race = db.RaceSet.Find(id);
+            if (race == null)
             {
                 return HttpNotFound();
             }
-            return View(raceschema);
+            ViewBag.PoolId = new SelectList(db.PoolSet, "Id", "Name", race.PoolId);
+            return View(race);
         }
 
         //
-        // POST: /RaceSchema/Edit/5
+        // POST: /Race/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(RaceSchema raceschema)
+        public ActionResult Edit(Race race)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(raceschema).State = EntityState.Modified;
+                db.Entry(race).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(raceschema);
+            ViewBag.PoolId = new SelectList(db.PoolSet, "Id", "Name", race.PoolId);
+            return View(race);
         }
 
         //
-        // GET: /RaceSchema/Delete/5
+        // GET: /Race/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            RaceSchema raceschema = db.RaceSchemaSet.Find(id);
-            if (raceschema == null)
+            Race race = db.RaceSet.Find(id);
+            if (race == null)
             {
                 return HttpNotFound();
             }
-            return View(raceschema);
+            return View(race);
         }
 
         //
-        // POST: /RaceSchema/Delete/5
+        // POST: /Race/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RaceSchema raceschema = db.RaceSchemaSet.Find(id);
-            db.RaceSchemaSet.Remove(raceschema);
+            Race race = db.RaceSet.Find(id);
+            db.RaceSet.Remove(race);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

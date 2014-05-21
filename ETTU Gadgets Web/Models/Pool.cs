@@ -12,17 +12,16 @@ namespace ETTU_Gadgets_Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RaceImage
+    public partial class Pool
     {
-        public RaceImage()
+        public Pool()
         {
-            this.Boats = new HashSet<Boat>();
-            this.Persons = new HashSet<Person>();
+            this.Races = new HashSet<Race>();
         }
     
         public int Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual ICollection<Boat> Boats { get; set; }
-        public virtual ICollection<Person> Persons { get; set; }
+        public virtual ICollection<Race> Races { get; set; }
     }
 }

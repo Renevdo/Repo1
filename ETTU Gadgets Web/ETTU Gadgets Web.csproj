@@ -151,45 +151,53 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RaceSchemaController.cs" />
+    <Compile Include="Controllers\PoolController.cs" />
+    <Compile Include="Controllers\RaceController.cs" />
+    <Compile Include="Controllers\RaceResultController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Boat.cs">
-      <DependentUpon>DragonModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DragonModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DragonModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DragonModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DragonModels.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DragonModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DragonModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Images.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Person.cs">
-      <DependentUpon>DragonModels.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pool.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Race.cs">
-      <DependentUpon>DragonModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RaceImage.cs">
-      <DependentUpon>DragonModels.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RaceResult.cs">
-      <DependentUpon>DragonModels.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RaceSchema.cs">
-      <DependentUpon>DragonModels.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Validation\MinItemsAttribute.cs" />
+    <Compile Include="Models\Validation\MaxItemsAttribute.cs" />
+    <Compile Include="Models\Validation\RaceValidation.cs" />
+    <Compile Include="Models\ViewModels\RaceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\ViewModels\UploadImageModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DragonDataBase.mdf" />
@@ -267,19 +275,19 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DragonModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DragonModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DragonModels.edmx</DependentUpon>
-      <LastGenOutput>DragonModels.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\DragonModels.edmx.diagram">
       <DependentUpon>DragonModels.edmx</DependentUpon>
     </Content>
     <Content Include="Models\DragonModels.edmx.sql" />
-    <Content Include="Models\DragonModels.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>DragonModels.edmx</DependentUpon>
-      <LastGenOutput>DragonModels.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>DragonModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -324,12 +332,29 @@
     <Content Include="Views\Boat\Edit.cshtml" />
     <Content Include="Views\Boat\Delete.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
-    <Content Include="Views\RaceSchema\Index.cshtml" />
-    <Content Include="Views\RaceSchema\Details.cshtml" />
-    <Content Include="Views\RaceSchema\Create.cshtml" />
-    <Content Include="Views\RaceSchema\Edit.cshtml" />
-    <Content Include="Views\RaceSchema\Delete.cshtml" />
     <Content Include="Views\Boat\Crew.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Team\EditTeam.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\RaceResult\Index.cshtml" />
+    <Content Include="Views\RaceResult\Details.cshtml" />
+    <Content Include="Views\RaceResult\Create.cshtml" />
+    <Content Include="Views\RaceResult\Edit.cshtml" />
+    <Content Include="Views\RaceResult\Delete.cshtml" />
+    <Content Include="Views\Shared\_UploadImage.cshtml" />
+    <Content Include="Views\Pool\Index.cshtml" />
+    <Content Include="Views\Pool\Details.cshtml" />
+    <Content Include="Views\Pool\Create.cshtml" />
+    <Content Include="Views\Pool\Edit.cshtml" />
+    <Content Include="Views\Pool\Delete.cshtml" />
+    <Content Include="Views\Race\Index.cshtml" />
+    <Content Include="Views\Race\Details.cshtml" />
+    <Content Include="Views\Race\Create.cshtml" />
+    <Content Include="Views\Race\Edit.cshtml" />
+    <Content Include="Views\Race\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

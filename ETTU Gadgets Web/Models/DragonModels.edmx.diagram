@@ -5,18 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="076329a58c9f48c389fc897e320c8bb7" Name="Diagram1" >
-        <EntityTypeShape EntityType="DragonModels.Boat" Width="1.5" PointX="6.125" PointY="0.625" />
-        <EntityTypeShape EntityType="DragonModels.Race" Width="1.5" PointX="1.375" PointY="0.625" />
-        <EntityTypeShape EntityType="DragonModels.Person" Width="1.5" PointX="6.125" PointY="3" />
-        <AssociationConnector Association="DragonModels.PersonBoat" />
-        <EntityTypeShape EntityType="DragonModels.RaceResult" Width="1.5" PointX="3.625" PointY="0.625" />
+        <EntityTypeShape EntityType="DragonModels.Boat" Width="1.5" PointX="5.875" PointY="1.75" />
+        <EntityTypeShape EntityType="DragonModels.Race" Width="1.5" PointX="3.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DragonModels.Person" Width="1.5" PointX="5.875" PointY="4.75" />
+        <EntityTypeShape EntityType="DragonModels.RaceResult" Width="1.5" PointX="3.5" PointY="3.5" />
         <AssociationConnector Association="DragonModels.RaceResultRace" />
         <AssociationConnector Association="DragonModels.BoatRaceResult" />
-        <EntityTypeShape EntityType="DragonModels.RaceImage" Width="1.5" PointX="8.25" PointY="1.875" />
+        <EntityTypeShape EntityType="DragonModels.Images" Width="1.5" PointX="8.625" PointY="2.875" />
         <AssociationConnector Association="DragonModels.RaceImageBoat" />
         <AssociationConnector Association="DragonModels.RaceImagePerson" />
-        <EntityTypeShape EntityType="DragonModels.RaceSchema" Width="1.5" PointX="1.75" PointY="3" />
-        <AssociationConnector Association="DragonModels.RaceSchemaRace" />
+        <AssociationConnector Association="DragonModels.BoatPerson" />
+        <EntityTypeShape EntityType="DragonModels.Pool" Width="1.5" PointX="0.875" PointY="0.5" />
+        <AssociationConnector Association="DragonModels.PoolRace" />
+        <AssociationConnector Association="DragonModels.RaceBoat" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

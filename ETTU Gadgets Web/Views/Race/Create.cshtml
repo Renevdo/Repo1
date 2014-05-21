@@ -1,0 +1,52 @@
+﻿@model ETTU_Gadgets_Web.Models.ViewModels.RaceViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Race</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Race.PoolId, "Pool")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.Race.PoolId, ViewBag.AvailablePools as SelectList, "Select a pool")
+            @Html.ValidationMessageFor(model => model.Race.PoolId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Boat1, "Boat 1")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.Boat1, new SelectList(ViewBag.AvailableBoats, "Id", "Name"), "Select boat 1")
+            @Html.ValidationMessageFor(model => model.Boat1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Boat2, "Boat 2")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.Boat2, new SelectList(ViewBag.AvailableBoats, "Id", "Name"), "Select boat 2")
+            @Html.ValidationMessageFor(model => model.Boat2)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -17,13 +17,14 @@ namespace ETTU_Gadgets_Web.Models
         public Race()
         {
             this.RaceResult = new HashSet<RaceResult>();
+            this.Boats = new HashSet<Boat>();
         }
     
         public int Id { get; set; }
-        public string Pool { get; set; }
-        public int RaceSchemaId { get; set; }
+        public int PoolId { get; set; }
     
         public virtual ICollection<RaceResult> RaceResult { get; set; }
-        public virtual RaceSchema RaceSchema { get; set; }
+        public virtual Pool Pool { get; set; }
+        public virtual ICollection<Boat> Boats { get; set; }
     }
 }
